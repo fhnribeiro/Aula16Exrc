@@ -17,10 +17,10 @@ import java.util.List;
  * @author 11944413600
  */
 public class VisitanteDAO {
-    private Connection conexao;
-    private PreparedStatement operacaoEntrada;
-    private PreparedStatement operacaoListar;
-    private PreparedStatement operacaoSaida;
+    private final Connection conexao;
+    private final PreparedStatement operacaoEntrada;
+    private final PreparedStatement operacaoListar;
+    private final PreparedStatement operacaoSaida;
 
     public VisitanteDAO() throws Exception {
         this.conexao = ConexaoJavaDB.getConnection();
@@ -47,7 +47,7 @@ public class VisitanteDAO {
         operacaoListar.clearParameters();
         ResultSet rs = operacaoListar.executeQuery();
         while(rs.next()){
-            Visitante v = new Visitante( rs.getLong("id"), rs.getString("nome"), rs.getInt("idade"), rs.getDate("entrada"), rs.getDate("saida"));
+            Visitante v = new Visitante( rs.getLong("id"), rs.getString("nome"), rs.getInt("idade"), rs.getTimestamp("entrada"), rs.getTimestamp("saida"));
             visitantes.add(v);
         }
         return visitantes;
